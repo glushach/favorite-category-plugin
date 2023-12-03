@@ -28,6 +28,13 @@ class WFM_Cats extends WP_Widget
 
   public function form($instance)
   {
+    $count = isset($instance['count']) ? $instance['count'] : 5;
+    ?>
+      <p>
+        <label for="<?php echo $this->get_field_id('count') ;?>">Кол-во записей для вывода:</label>
+        <input type="text" name="<?php echo $this->get_field_name('count') ;?>" id="<?php echo $this->get_field_id('count') ;?>" value="<?php echo $count ;?>" class="widefat">
+      </p>
+    <?php
   }
 
   public function widget($args, $instance)
