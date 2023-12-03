@@ -29,12 +29,21 @@ class WFM_Cats extends WP_Widget
   public function form($instance)
   {
     $count = isset($instance['count']) ? $instance['count'] : 5;
+    $cats = get_categories();
     ?>
       <p>
         <label for="<?php echo $this->get_field_id('count') ;?>">Кол-во записей для вывода:</label>
         <input type="text" name="<?php echo $this->get_field_name('count') ;?>" id="<?php echo $this->get_field_id('count') ;?>" value="<?php echo $count ;?>" class="widefat">
       </p>
     <?php
+    echo '<p>';
+    foreach($cats as $cat) {
+      ?>
+        <input type="checkbox" name="<?php echo $this->get_field_name('inc');?>[]" id="<?php echo $this->get_field_id('inc') . $cat->cat_ID ;?>" value="<?= $cat->cat_ID ;?>" <?php if(is_array($instance['inc']) && in_array($cat->cat_ID, $instance['inc'])) echo "checked" ?>>
+        <label for="<?php echo $this->get_field_id('inc') . $cat->cat_ID ;?>"><?php echo $cat->name ;?></label> </br>
+      <?php
+    }
+    echo '</p>';
   }
 
   public function widget($args, $instance)
