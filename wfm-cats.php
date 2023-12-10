@@ -48,6 +48,28 @@ class WFM_Cats extends WP_Widget
 
   public function widget($args, $instance)
   {
+    if(!empty($instance['inc'])) {
+      foreach($instance['inc'] as $cat_id) {
+        $cat = get_category($cat_id);
+        global $post;
+        $posts = get_posts(
+          array(
+            'category' => $cat_id,
+            'numberposts' => $instance['count']
+          )
+        );
+        echo '<div class="widget" style="margin-bottom: 25px">';
+          echo "<h2>{$cat->name}</h2>";
+          echo '<ul style="list-style-type: none;">';
+          foreach($posts as $post) {
+            setup_postdata($post);
+            echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+          }
+          wp_reset_postdata();
+          echo '</ul>';
+        echo '</div>';
+      }
+    }
   }
 
 /*   public function update()
