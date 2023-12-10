@@ -72,8 +72,12 @@ class WFM_Cats extends WP_Widget
     }
   }
 
-/*   public function update()
+  public function update($new_instance, $old_instance)
   {
-
-  } */
+    $new_instance['count'] = ((int) $new_instance['count']) ? abs($new_instance['count']) : 4;
+    foreach($new_instance['inc'] as $k => $v) {
+      $new_instance['inc'][$k] = (int) $v;
+    }
+    return $new_instance;
+  }
 }
